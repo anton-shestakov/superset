@@ -29,6 +29,7 @@ import math
 import re
 from collections import defaultdict, OrderedDict
 from datetime import date, datetime, timedelta
+from decimal import Decimal
 from itertools import product
 from typing import (
     Any,
@@ -939,7 +940,9 @@ class PivotTableViz(BaseViz):
         metric: str, df: pd.DataFrame, form_data: Dict[str, Any]
     ) -> Union[str, Callable[[Any], Any]]:
         aggfunc = form_data.get("pandas_aggfunc") or "sum"
-        if pd.api.types.is_numeric_dtype(df[metric]):
+        if pd.api.types.is_numeric_dtype(df[metric]) or all(
+            isinstance(x, Decimal) for x in df[metric]
+        ):
             # Ensure that Pandas's sum function mimics that of SQL.
             if aggfunc == "sum":
                 return lambda x: x.sum(min_count=1)
@@ -977,8 +980,8 @@ class PivotTableViz(BaseViz):
 
         if self.form_data.get("granularity") == "all" and DTTM_ALIAS in df:
             del df[DTTM_ALIAS]
-
         metrics = [utils.get_metric_name(m) for m in self.form_data["metrics"]]
+        df = df.fillna({c: Decimal(0) for c in metrics})
         aggfuncs: Dict[str, Union[str, Callable[[Any], Any]]] = {}
         for metric in metrics:
             aggfuncs[metric] = self.get_aggfunc(metric, df, self.form_data)
@@ -999,12 +1002,16 @@ class PivotTableViz(BaseViz):
         if self.form_data.get("transpose_pivot"):
             groupby, columns = columns, groupby
 
-        df = df.pivot_table(
+        df = df.fillna({c: NULL_STRING for c in groupby}).pivot_table(
             index=get_column_names(groupby),
             columns=get_column_names(columns),
             values=metrics,
             aggfunc=aggfuncs,
             margins=self.form_data.get("pivot_margins"),
+            fill_value=NULL_STRING,
+        )
+        df = df.replace(NULL_STRING, float("nan")).rename(
+            index={NULL_STRING: float("nan")}
         )
 
         # Re-order the columns adhering to the metric ordering.
@@ -3030,7 +3037,6 @@ class PairedTTestViz(BaseViz):
 
 
 class RoseViz(NVD3TimeSeriesViz):
-
     viz_type = "rose"
     verbose_name = _("Time Series - Nightingale Rose Chart")
     sort_series = False

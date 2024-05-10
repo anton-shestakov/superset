@@ -96,6 +96,8 @@ WORKDIR /app
 
 USER superset
 
+COPY docker/finx/superset_config.py /app/pythonpath/
+
 HEALTHCHECK CMD curl -f "http://localhost:$SUPERSET_PORT/health"
 
 EXPOSE ${SUPERSET_PORT}

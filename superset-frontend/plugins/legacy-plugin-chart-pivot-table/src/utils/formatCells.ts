@@ -32,7 +32,7 @@ function formatCellValue(
   let textContent: string = tdText;
   let sortAttributeValue: any = tdText;
 
-  if (parseFloat(tdText)) {
+  if (typeof parseFloat(tdText) !== 'undefined') {
     const parsedValue = parseFloat(tdText);
     textContent = formatNumber(format, parsedValue);
     sortAttributeValue = parsedValue;
