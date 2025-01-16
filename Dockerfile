@@ -18,7 +18,7 @@
 ######################################################################
 # Node stage to deal with static asset construction
 ######################################################################
-ARG PY_VER=3.8.16-slim
+ARG PY_VER=3.8.20-slim-bookworm
 FROM node:16-slim AS superset-node
 
 ARG NPM_BUILD_CMD="build"
@@ -57,14 +57,15 @@ ENV LANG=C.UTF-8 \
 RUN mkdir -p ${PYTHONPATH} \
         && useradd --user-group -d ${SUPERSET_HOME} -m --no-log-init --shell /bin/bash superset \
         && apt-get update -y \
+        && apt-get upgrade -y \
         && apt-get install -y --no-install-recommends \
             build-essential \
             curl \
-            default-libmysqlclient-dev \
             libsasl2-dev \
             libsasl2-modules-gssapi-mit \
             libpq-dev \
             libecpg-dev \
+            pkg-config \
         && rm -rf /var/lib/apt/lists/*
 
 COPY ./requirements/*.txt  /app/requirements/
