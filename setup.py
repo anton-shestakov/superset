@@ -113,7 +113,7 @@ setup(
         "pyyaml>=5.4",
         "PyJWT>=2.4.0, <3.0",
         "redis",
-        "selenium>=3.141.0",
+        "selenium>=4.15.1, <5.0",
         "sshtunnel>=0.4.0, <0.5",
         "simplejson>=3.15.0",
         "slack_sdk>=3.1.1, <4",

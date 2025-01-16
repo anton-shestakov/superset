@@ -13,8 +13,11 @@ amqp==5.1.0
     # via kombu
 apispec[yaml]==6.6.1
     # via flask-appbuilder
-attrs==21.2.0
-    # via jsonschema
+attrs==24.3.0
+    # via
+    #   jsonschema
+    #   outcome
+    #   trio
 babel==2.9.1
     # via flask-babel
 backoff==1.11.1
@@ -31,6 +34,8 @@ cachelib==0.4.1
     #   flask-caching
 celery==5.2.2
     # via apache-superset
+certifi==2024.12.14
+    # via selenium
 cffi==1.15.1
     # via
     #   cryptography
@@ -72,6 +77,10 @@ dnspython==2.1.0
     # via email-validator
 email-validator==1.1.3
     # via flask-appbuilder
+exceptiongroup==1.2.2
+    # via
+    #   trio
+    #   trio-websocket
 flask==2.2.5
     # via
     #   apache-superset
@@ -127,6 +136,8 @@ greenlet==2.0.2
     #   sqlalchemy
 gunicorn==20.1.0
     # via apache-superset
+h11==0.14.0
+    # via wsproto
 hashids==1.3.1
     # via apache-superset
 hijri-converter==2.2.4
@@ -136,7 +147,9 @@ holidays==0.17.2
 humanize==3.11.0
     # via apache-superset
 idna==3.10
-    # via email-validator
+    # via
+    #   email-validator
+    #   trio
 importlib-metadata==6.3.0
     # via flask
 importlib-resources==5.12.0
@@ -193,6 +206,8 @@ numpy==1.23.5
     #   pyarrow
 ordered-set==4.1.0
     # via flask-limiter
+outcome==1.3.0.post0
+    # via trio
 packaging==21.3
     # via
     #   apispec
@@ -234,6 +249,8 @@ pyparsing==3.0.6
     #   packaging
 pyrsistent==0.16.1
     # via jsonschema
+pysocks==1.7.1
+    # via urllib3
 python-dateutil==2.8.2
     # via
     #   alembic
@@ -262,7 +279,7 @@ redis==3.5.3
     # via apache-superset
 rich==13.3.4
     # via flask-limiter
-selenium==3.141.0
+selenium==4.27.1
     # via apache-superset
 simplejson==3.17.3
     # via apache-superset
@@ -279,6 +296,10 @@ six==1.16.0
     #   wtforms-json
 slack-sdk==3.18.3
     # via apache-superset
+sniffio==1.3.1
+    # via trio
+sortedcontainers==2.4.0
+    # via trio
 sqlalchemy==1.4.36
     # via
     #   alembic
@@ -297,13 +318,20 @@ sshtunnel==0.4.0
     # via apache-superset
 tabulate==0.8.9
     # via apache-superset
-typing-extensions==4.4.0
+trio==0.27.0
+    # via
+    #   selenium
+    #   trio-websocket
+trio-websocket==0.11.1
+    # via selenium
+typing-extensions==4.12.2
     # via
     #   apache-superset
     #   flask-limiter
     #   limits
     #   rich
-urllib3==1.26.20
+    #   selenium
+urllib3[socks]==1.26.20
     # via
     #   apache-superset
     #   selenium
@@ -314,6 +342,8 @@ vine==5.0.0
     #   kombu
 wcwidth==0.2.5
     # via prompt-toolkit
+websocket-client==1.8.0
+    # via selenium
 werkzeug==3.0.6
     # via
     #   apache-superset
@@ -323,6 +353,8 @@ werkzeug==3.0.6
     #   flask-login
 wrapt==1.12.1
     # via deprecated
+wsproto==1.2.0
+    # via trio-websocket
 wtforms==3.0.1
     # via
     #   apache-superset
