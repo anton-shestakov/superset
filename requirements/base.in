@@ -18,3 +18,4 @@
 #
 -e file:.
 greenlet<3.0.0
+marshmallow-enum==1.5.1
