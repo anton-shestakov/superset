@@ -133,7 +133,7 @@ holidays==0.17.2
     # via apache-superset
 humanize==3.11.0
     # via apache-superset
-idna==3.2
+idna==3.10
     # via email-validator
 importlib-metadata==6.3.0
     # via flask
