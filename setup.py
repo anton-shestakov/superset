@@ -124,7 +124,7 @@ setup(
         "typing-extensions>=4, <5",
         "urllib3<2.0",
         "waitress; sys_platform == 'win32'",
-        "werkzeug>=2.3.3, <3",
+        "werkzeug>=3.0.1, <4",
         "wtforms>=2.3.3, <4",
         "wtforms-json",
         "xlsxwriter>=3.0.7, <3.1",
