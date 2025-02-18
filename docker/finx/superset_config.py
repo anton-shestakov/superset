@@ -1,6 +1,28 @@
 import datetime as dt
 import json
 import os
+from superset.security import SupersetSecurityManager
+from flask import request
+
+
+def get_identification():
+    return request.form.get('username')
+
+
+class FinXSecurityManager(SupersetSecurityManager):
+    def register_views(self):
+        super().register_views()
+        self.limiter.limit(
+            "10 per minute",
+            methods=["POST"],
+            key_func=get_identification,
+            error_message="try again later",
+        )(self.auth_view.blueprint)
+
+
+AUTH_RATE_LIMITED = False
+CUSTOM_SECURITY_MANAGER = FinXSecurityManager
+RATELIMIT_STORAGE_URI = os.getenv("CACHE_REDIS_URL", "redis://redis:6379/1")
 
 
 def get_period_end(to_dttm):
