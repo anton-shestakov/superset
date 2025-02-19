@@ -68,7 +68,7 @@ RUN mkdir -p ${PYTHONPATH} \
             pkg-config \
         && rm -rf /var/lib/apt/lists/*
 
-COPY ./requirements/*.txt  /app/requirements/
+COPY ./requirements/base.txt ./requirements/development.txt ./requirements/local.txt  /app/requirements/
 COPY setup.py MANIFEST.in README.md /app/
 
 # setup.py uses the version information in package.json
